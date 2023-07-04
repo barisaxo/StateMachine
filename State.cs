@@ -1,17 +1,11 @@
 using System;
 using UnityEngine;
-using Bard2D.Boards;
-using Bard2D.HUDs;
-using Bard2D.AudioSystems;
 using System.Threading.Tasks;
 
 public abstract class State
 {
     #region REFERENCES
-    protected static ButtonHUD BHUD => ButtonHUD.Io;
-    protected static Board Board => Board.Io;
-    protected static AudioManager Audio => AudioManager.Io;
-    protected static DataManager Data => DataManager.Io;
+    // non game agnostic references such as Data
     #endregion REFERENCES
 
 
@@ -131,19 +125,17 @@ public abstract class State
                 return;
             }
 
-            if (hit.collider.gameObject == BHUD.MuteButton.Parent)
-            {
-                BHUD.MuteButton.SetTextString(BHUD.MuteButton.TMP.text == "›" ? "≠" : "›");
-                AudioListener.volume = BHUD.MuteButton.TMP.text == "›" ? 0 : 1;
+            ///This Should be Implimented, but is not game agnostic so commented out
+            //if (hit.collider.gameObject == MuteButton.Parent)
+            //{
+            //    return;
+            //}
 
-                return;
-            }
-
-            if (hit.collider.gameObject == BHUD.QuitButton.Parent)
-            {
-                SetStateDirectly(new DialogStart_State(new Quit_Dialogue(this)));
-                return;
-            }
+            //if (hit.collider.gameObject == QuitButton.Parent)
+            //{
+            //    SetStateDirectly(new DialogStart_State(new Quit_Dialogue(this)));
+            //    return;
+            //}
 
             ClickedOn(hit.collider.gameObject);
         }
